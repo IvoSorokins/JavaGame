@@ -45,6 +45,7 @@ public class Main {
                         break;
                     case 3:
                         createNewAccount();
+                        Menu();
                     case 4:
                         endGame();
                         break;
@@ -98,12 +99,16 @@ public class Main {
         messages.letsCreateNewAccount();
         Scanner scanner = new Scanner(System.in);
         username = scanner.nextLine();
+       while (isUsernameTaken(username,users)){
+            messages.alreadyExists();
+            messages.createUsername();
+            username = scanner.nextLine();}
         password=passwordManager.createPassword();
         passwordManager.confirmPassword(password);
         User newUser = new User(username, password);
         users.add(newUser);
         messages.successfullyCreatedNewAccount(username, password);
-        Menu();
+        
     }
     private static boolean isUsernameTaken(String username, ArrayList<User> users) {
         for (User user : users) {
